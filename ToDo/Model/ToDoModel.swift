@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ToDoModel {
+// using codable to work decodable,encodable.
+struct ToDoModel : Codable {
     var items : String = ""
     var isChecked : Bool = false
 }
