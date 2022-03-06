@@ -3,6 +3,6 @@
 1. Used Swfit UiKit to Build this app
 
 ```
-Local Storage Using
+Core Data
 ```
 
