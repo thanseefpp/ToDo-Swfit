@@ -97,9 +97,9 @@
         <!--Navigation Controller-->
         <scene sceneID="rCm-d8-sPA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S2W-5Z-Mrh" sceneMemberID="viewController">
+                <navigationController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="S2W-5Z-Mrh" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleAspectFit" id="fuJ-CE-eef">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="fuJ-CE-eef">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="lightGreen"/>
@@ -122,7 +122,7 @@
     </scenes>
     <resources>
         <namedColor name="lightGreen">
-            <color red="0.32941176470588235" green="0.72941176470588232" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.32899999618530273" green="0.72899997234344482" blue="0.72500002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
