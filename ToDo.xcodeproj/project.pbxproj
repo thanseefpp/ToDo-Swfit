@@ -14,6 +14,7 @@
 		75A952AD27D0670F00FD3543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75A952AB27D0670F00FD3543 /* Main.storyboard */; };
 		75A952AF27D0671000FD3543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A952AE27D0671000FD3543 /* Assets.xcassets */; };
 		75A952B227D0671000FD3543 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75A952B027D0671000FD3543 /* LaunchScreen.storyboard */; };
+		75D3D2E227D4A7F800EF537F /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D3D2E127D4A7F800EF537F /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		75A952AE27D0671000FD3543 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75A952B127D0671000FD3543 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75A952B327D0671000FD3543 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75D3D2E127D4A7F800EF537F /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				75A952A927D0670F00FD3543 /* ToDoListViewController.swift */,
+				75D3D2E127D4A7F800EF537F /* CategoryTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			files = (
 				75A952AA27D0670F00FD3543 /* ToDoListViewController.swift in Sources */,
 				7594103B27D1E03B00C58CE0 /* DataModel.xcdatamodeld in Sources */,
+				75D3D2E227D4A7F800EF537F /* CategoryTableViewController.swift in Sources */,
 				75A952A627D0670F00FD3543 /* AppDelegate.swift in Sources */,
 				75A952A827D0670F00FD3543 /* SceneDelegate.swift in Sources */,
 			);

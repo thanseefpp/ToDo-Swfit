@@ -12,13 +12,19 @@ class ToDoListViewController: UITableViewController {
     
     @IBOutlet var tabelView: UITableView!
     
-    //localstorage handle
+    //db initialized
     var itemArray = [TodoModel]()
     
-    //MARK: - Coredata handling initialised db
-    // downcating shared delegate to app delegate.
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //now only show the items when selectedcategory data get.
+    var selectedCategory : Category? {
+        didSet {
+            //to fetch all the items in database.
+            loadItems()
+        }
+    }
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     // creating a plist to handle local storage datas
     //    let dataFilesPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
@@ -30,21 +36,11 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        //to fetch all the items in database.
-        loadItems()
-        
+
         //        var newItem = ToDoModel()
         //        newItem.items = "first Todo task"
         //        newItem.isChecked = true
         //        itemArray.append(newItem)
-        //
-        //        var newItem2 = ToDoModel()
-        //        newItem2.items = "second Todo task"
-        //        itemArray.append(newItem2)
-        //
-        //        var newItem3 = ToDoModel()
-        //        newItem3.items = "third Todo task"
-        //        itemArray.append(newItem3)
         
         
         //persist local storage data.
@@ -60,7 +56,7 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        let arrayData = itemArray[indexPath.row]
+        //let arrayData = itemArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
         let item = itemArray[indexPath.row]
@@ -119,6 +115,8 @@ class ToDoListViewController: UITableViewController {
             //            var newItems = ToDoModel() // 2nd method to hanlde codable format
             newItems.items = textField.text!
             newItems.isChecked = false
+            //this will create a relation between category table to the item field.
+            newItems.parentCategory = self.selectedCategory
             self.itemArray.append(newItems)
             
             // calling the function to run the encode method to store data to plist
@@ -142,7 +140,7 @@ class ToDoListViewController: UITableViewController {
         
     }
     
-    //MARK: - Encoding
+    //MARK: - save items to db, Data Manipulation
     
     func saveItems(){
         
@@ -157,7 +155,7 @@ class ToDoListViewController: UITableViewController {
             // try data.write(to: dataFilesPath!)
             
             // saving the context
-            try self.context.save()
+            try context.save()
             
         }catch{
             print("Error occured during contextsaving \(error)")
@@ -168,7 +166,7 @@ class ToDoListViewController: UITableViewController {
     
     
     //setting a defautl value to the parameter to avoid the conflict when the function call without argument it will be executed.
-    func loadItems(with request : NSFetchRequest<TodoModel> = TodoModel.fetchRequest()) {
+    func loadItems(with request : NSFetchRequest<TodoModel> = TodoModel.fetchRequest(), predicate: NSPredicate? = nil) {
         //MARK: - decoding
         //        if let data = try? Data(contentsOf: dataFilesPath!) {
         //            let decorder = PropertyListDecoder()
@@ -181,14 +179,22 @@ class ToDoListViewController: UITableViewController {
         
         //MARK: - coredata sqlite fetching items ( read )
         
+        //query to check the parentCategory.name matches the selectedCategory.name
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates:[categoryPredicate,additionalPredicate])
+        }else {
+            request.predicate = categoryPredicate
+        }
+        
         do {
             itemArray = try context.fetch(request)
         } catch {
-            print("Error occured during fetching items \(error)")
+            print("Error fetching data from context \(error)")
         }
         
-        //to reload the data.
-        tabelView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -200,30 +206,25 @@ extension ToDoListViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // created a varibale contain request from the coredata table.
         let request : NSFetchRequest<TodoModel> = TodoModel.fetchRequest()
-        
-        //predict variable will take the values inserted in searchbox. here checking the search text field value with title contains.
-        request.predicate = NSPredicate(format: "items CONTAINS[cd] %@", searchBar.text!)
-        
+        //query to check the letter contain in items list
+        let predicate = NSPredicate(format: "items CONTAINS[cd] %@", searchBar.text!)
+//        print(predicate)
         // here sorting the searched items based on our table field. ascending order. must use array
         request.sortDescriptors = [NSSortDescriptor(key: "items", ascending: true)]
         
-        loadItems(with: request)
+        loadItems(with: request, predicate: predicate)
     }
     
     // this delegate method will always trigger when the user type text or remove from searchbar.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadItems()
-            
-            // to dismiss the keyboard
+            // to dismiss the keyboard.
             //using dispathchqueue to run thread as main.
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
-            
         }
     }
     
 }
-
-

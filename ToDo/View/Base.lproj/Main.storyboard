@@ -7,16 +7,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--ToDo-->
         <scene sceneID="D5G-hL-Vp7">
             <objects>
-                <tableViewController id="I5X-JA-Nzh" sceneMemberID="viewController">
+                <tableViewController id="I5X-JA-Nzh" customClass="CategoryTableViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="OQV-Eg-Gkb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="zQ7-D9-9mb">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="zQ7-D9-9mb">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zQ7-D9-9mb" id="iW8-Hg-EoX">
@@ -30,7 +30,14 @@
                             <outlet property="delegate" destination="I5X-JA-Nzh" id="lWx-rf-nxX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="sSh-cn-Vxu"/>
+                    <navigationItem key="navigationItem" title="ToDo" id="sSh-cn-Vxu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="UTl-Rw-bHb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="I5X-JA-Nzh" id="SWx-Yg-hlO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="qOj-Ht-1Pr" kind="show" identifier="goToItems" id="fl9-Ay-rZE"/>
                     </connections>
